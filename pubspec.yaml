@@ -29,7 +29,12 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  cloud_firestore: ^4.3.1
+  country_picker: ^2.0.19
   cupertino_icons: ^1.0.2
+  firebase_auth: ^4.2.5
+  firebase_core: ^2.4.1
+  firebase_storage: ^11.0.10
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.2.17
@@ -46,8 +51,6 @@ flutter_native_splash:
     image_dark: lib/assets/images/splash_dark.png
     icon_background_color: "#FFFFFF"
     icon_background_color_dark: "#111B21"
-
-  
 
 dev_dependencies:
   flutter_lints: ^2.0.0
