@@ -1,12 +1,18 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+
 import 'package:whats_app_messenger/common/extension/custom_theme_extension.dart';
 import 'package:whats_app_messenger/common/widgets/custom_icon_button.dart';
 import 'package:whats_app_messenger/feature/auth/widgets/custom_text_field.dart';
 
 class VerificationPage extends StatefulWidget {
-  const VerificationPage({super.key});
+  const VerificationPage(
+      {Key? key, required this.verificationId, required this.phoneNumber})
+      : super(key: key);
+  final String verificationId;
+  final String phoneNumber;
 
   @override
   State<VerificationPage> createState() => _VerificationPageState();

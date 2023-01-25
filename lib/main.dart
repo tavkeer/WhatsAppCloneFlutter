@@ -1,14 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:whats_app_messenger/common/routes/routes.dart';
 import 'package:whats_app_messenger/common/theme/dark_theme.dart';
 import 'package:whats_app_messenger/common/theme/light_theme.dart';
-import 'package:whats_app_messenger/feature/auth/pages/login_page.dart';
-import 'package:whats_app_messenger/feature/auth/pages/userinfo_page.dart';
-import 'package:whats_app_messenger/feature/auth/pages/verification_page.dart';
 import 'package:whats_app_messenger/feature/welcome/pages/welcome_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -19,11 +20,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'WhatsApp Messenger',
-        theme: lightTheme(),
-        darkTheme: darkTheme(),
-        themeMode: ThemeMode.system,
-        home: UserInfoPage());
+      debugShowCheckedModeBanner: false,
+      title: 'WhatsApp Messenger',
+      theme: lightTheme(),
+      darkTheme: darkTheme(),
+      themeMode: ThemeMode.system,
+      home: WelcomePage(),
+      onGenerateRoute: Routes.onGenerateRoute,
+    );
   }
 }
