@@ -7,7 +7,6 @@ import 'package:whats_app_messenger/common/routes/routes.dart';
 import 'package:whats_app_messenger/common/theme/dark_theme.dart';
 import 'package:whats_app_messenger/common/theme/light_theme.dart';
 import 'package:whats_app_messenger/feature/auth/pages/userinfo_page.dart';
-import 'package:whats_app_messenger/feature/welcome/pages/welcome_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
