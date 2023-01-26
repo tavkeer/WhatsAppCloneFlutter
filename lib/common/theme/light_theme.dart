@@ -6,6 +6,9 @@ import 'package:whats_app_messenger/common/utils/color.dart';
 ThemeData lightTheme() {
   final ThemeData base = ThemeData.light();
   return base.copyWith(
+    colorScheme: const ColorScheme.light(
+      background: Coloors.backgroundLight,
+    ),
     scaffoldBackgroundColor: Coloors.backgroundLight,
     extensions: [CustomThemeExtension.lightMode],
     appBarTheme: const AppBarTheme(
