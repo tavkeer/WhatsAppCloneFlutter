@@ -2,6 +2,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whats_app_messenger/common/routes/routes.dart';
 import 'package:whats_app_messenger/common/theme/dark_theme.dart';
 import 'package:whats_app_messenger/common/theme/light_theme.dart';
@@ -10,7 +11,9 @@ import 'package:whats_app_messenger/feature/welcome/pages/welcome_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(const ProviderScope(
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

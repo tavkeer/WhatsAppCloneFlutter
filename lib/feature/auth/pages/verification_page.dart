@@ -2,38 +2,36 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:whats_app_messenger/common/extension/custom_theme_extension.dart';
 import 'package:whats_app_messenger/common/widgets/custom_icon_button.dart';
+import 'package:whats_app_messenger/feature/auth/controller/auth_controller.dart';
 import 'package:whats_app_messenger/feature/auth/widgets/custom_text_field.dart';
 
-class VerificationPage extends StatefulWidget {
-  const VerificationPage(
-      {Key? key, required this.verificationId, required this.phoneNumber})
-      : super(key: key);
-  final String verificationId;
+class VerificationPage extends ConsumerWidget {
+  const VerificationPage({
+    Key? key,
+    required this.smsCodeId,
+    required this.phoneNumber,
+  }) : super(key: key);
+  final String smsCodeId;
   final String phoneNumber;
-
-  @override
-  State<VerificationPage> createState() => _VerificationPageState();
-}
-
-class _VerificationPageState extends State<VerificationPage> {
-  late TextEditingController codeController;
-  @override
-  void initState() {
-    codeController = TextEditingController();
-    super.initState();
+  void verifySmsCode(
+    BuildContext context,
+    WidgetRef ref,
+    String smsCode,
+  ) {
+    ref.read(authControllerProvider).verifySmsCode(
+          context: context,
+          smsCodeId: smsCodeId,
+          smsCode: smsCode,
+          mounted: true,
+        );
   }
 
   @override
-  void dispose() {
-    codeController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -72,12 +70,19 @@ class _VerificationPageState extends State<VerificationPage> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 80),
               child: CustomTextField(
-                controller: codeController,
                 hintText: '_ _ _  _ _ _',
                 fontSize: 30,
                 autoFocus: true,
                 keyboardType: TextInputType.number,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  if (value.length == 6) {
+                    return verifySmsCode(
+                      context,
+                      ref,
+                      value,
+                    );
+                  }
+                },
               ),
             ),
             SizedBox(

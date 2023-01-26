@@ -20,7 +20,7 @@ class PrivacyAndTerms extends StatelessWidget {
               ),
               children: [
                 TextSpan(
-                  text: 'Privacy Policy. ',
+                  text: ' Privacy Policy. ',
                   style: TextStyle(
                     color: context.theme.blueColor,
                   ),

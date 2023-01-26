@@ -18,14 +18,44 @@ class AuthRepository {
   final FirebaseAuth auth;
   final FirebaseFirestore firestore;
 
-  AuthRepository({required this.auth, required this.firestore});
+  AuthRepository({
+    required this.auth,
+    required this.firestore,
+  });
 
-  void sendSMSCode(
-      {required BuildContext context, required String phoneNumber}) async {
+  void verifySmsCode(
+      {required BuildContext context,
+      required String smsCodeId,
+      required String smsCode,
+      required bool mounted}) async {
+    try {
+      final credential = PhoneAuthProvider.credential(
+        verificationId: smsCodeId,
+        smsCode: smsCode,
+      );
+
+      await auth.signInWithCredential(credential);
+      if (!mounted) return;
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        Routes.userInfo,
+        (route) => false,
+      );
+    } on FirebaseAuth catch (e) {
+      showAlertDialog(
+        context: context,
+        message: e.toString(),
+      );
+    }
+  }
+
+  void sendSmsCode({
+    required BuildContext context,
+    required String phoneNumber,
+  }) async {
     try {
       await auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
-        verificationCompleted: (PhoneAuthCredential credential) async {
+        verificationCompleted: (credential) async {
           await auth.signInWithCredential(credential);
         },
         verificationFailed: (e) {
@@ -36,8 +66,8 @@ class AuthRepository {
             Routes.verification,
             (route) => false,
             arguments: {
-              phoneNumber: phoneNumber,
-              smsCodeId: smsCodeId,
+              'phoneNumber': phoneNumber,
+              'smsCodeId': smsCodeId,
             },
           );
         },
